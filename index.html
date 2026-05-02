@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1a3a2a" />
+  <title>Birds &amp; Fin Midwest Fest — Join the Waitlist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating particles background -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="event-badge">Midwest's Premiere Exotic Pet &amp; Aquarium Event</div>
+      <div class="icons-row">
+        <span class="icon-badge">🦜</span>
+        <span class="icon-badge">🐠</span>
+        <span class="icon-badge">🦎</span>
+        <span class="icon-badge">🌿</span>
+      </div>
+      <h1>Birds &amp; Fin<br /><span class="highlight">Midwest Fest</span></h1>
+      <p class="tagline">Birds · Aquarium Fish · Reptiles · Exotic Plants · Vendors · Community</p>
+      <div class="coming-soon-pill">
+        <span class="pulse-dot"></span>
+        <span>Website Coming Soon — Be First to Know</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- What to Expect -->
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title">What's Coming</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🦜</div>
+          <h3>Birds</h3>
+          <p>Parrots, finches, canaries, and rare exotic species from top breeders across the Midwest.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🐠</div>
+          <h3>Aquarium Fish</h3>
+          <p>Freshwater, saltwater, rare plecos, discus, and stunning reef livestock from passionate hobbyists.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🦎</div>
+          <h3>Reptiles</h3>
+          <p>Geckos, ball pythons, monitors, tortoises, and more from reputable reptile vendors.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌿</div>
+          <h3>Exotic Plants</h3>
+          <p>Rare tropicals, aquatic plants, terrariums, and everything green you could dream of.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏪</div>
+          <h3>Vendors &amp; Marketplace</h3>
+          <p>Local and regional vendors. Browse listings, connect before the event, and arrange local pickups.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h3>Community</h3>
+          <p>Meet fellow enthusiasts, join forums, trade tips, and be part of a growing Midwest community.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Form -->
+  <section class="register" id="register">
+    <div class="container">
+      <div class="form-wrapper">
+        <div class="form-header">
+          <h2>Join the Waitlist</h2>
+          <p>Register now to get early access when the full site launches. We'll notify you about upcoming events, vendor listings, and community meetups.</p>
+        </div>
+
+        <!-- Success State -->
+        <div class="success-state" id="successState" style="display:none;">
+          <div class="success-icon">✅</div>
+          <h3>You're on the list!</h3>
+          <p>Thanks for registering! We'll send you a text and email as soon as the site goes live and when event announcements drop. Stay tuned!</p>
+          <div class="success-tags">
+            <span>Event Alerts</span>
+            <span>Vendor Listings</span>
+            <span>Community Access</span>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form id="waitlistForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name <span class="req">*</span></label>
+              <input type="text" id="firstName" name="firstName" placeholder="Jane" autocomplete="given-name" required />
+              <span class="field-error" id="firstNameError"></span>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name <span class="req">*</span></label>
+              <input type="text" id="lastName" name="lastName" placeholder="Smith" autocomplete="family-name" required />
+              <span class="field-error" id="lastNameError"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="jane@example.com" autocomplete="email" required />
+            <span class="field-error" id="emailError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" autocomplete="tel" required />
+            <span class="field-error" id="phoneError"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="interest">Your Interest</label>
+            <select id="interest" name="interest">
+              <option value="">— Select one —</option>
+              <option value="attendee">Attendee / Buyer</option>
+              <option value="vendor">Vendor / Seller</option>
+              <option value="both">Both — Vendor &amp; Buyer</option>
+              <option value="breeder">Breeder</option>
+              <option value="just_looking">Just Curious / Community</option>
+            </select>
+          </div>
+
+          <!-- Agreement -->
+          <div class="agreement-box">
+            <label class="checkbox-label" for="agree">
+              <input type="checkbox" id="agree" name="agree" required />
+              <span class="custom-checkbox"></span>
+              <span class="checkbox-text">
+                I agree to receive <strong>text messages and emails</strong> from Birds &amp; Fin Midwest Fest about upcoming events, vendor announcements, and community updates. Message &amp; data rates may apply. You can opt out at any time.
+              </span>
+            </label>
+            <span class="field-error" id="agreeError"></span>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span class="btn-text">Reserve My Spot</span>
+            <span class="btn-icon">🐾</span>
+          </button>
+
+          <p class="form-note">No spam, ever. Your info is only used to notify you about Birds &amp; Fin Midwest Fest.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- What Happens Next -->
+  <section class="timeline">
+    <div class="container">
+      <h2 class="section-title">What Happens Next</h2>
+      <div class="timeline-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>You Register</h4>
+            <p>Add your name, email &amp; phone to join the early access waitlist.</p>
+          </div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Site Goes Live</h4>
+            <p>We text &amp; email you the moment the full community platform launches.</p>
+          </div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Browse &amp; Connect</h4>
+            <p>Browse vendor listings, chat with local breeders, and arrange local pickups.</p>
+          </div>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Attend the Fest!</h4>
+            <p>Show up to the event, meet vendors in person, and pick up your animals or plants.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-icons">🦜 🐠 🦎 🌿</div>
+      <p class="footer-title">Birds &amp; Fin Midwest Fest</p>
+      <p class="footer-sub">Midwest's Home for Exotic Birds, Fish, Reptiles &amp; Plants</p>
+      <p class="footer-copy">&copy; 2025 Birds &amp; Fin Midwest Fest. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

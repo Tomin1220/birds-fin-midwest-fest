@@ -5,6 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#1a3a2a" />
   <title>Birds &amp; Fin Midwest Fest — Join the Waitlist</title>
+  <meta name="description" content="Midwest's premiere exotic pet &amp; aquarium event — Birds, Aquarium Fish, Reptiles &amp; Plants. Join the waitlist for early access, vendor listings &amp; event announcements." />
+
+  <!-- Open Graph (Facebook, iMessage, Slack, Discord, etc.) -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://joyful-muffin-718003.netlify.app/" />
+  <meta property="og:title"       content="Birds &amp; Fin Midwest Fest — Join the Waitlist" />
+  <meta property="og:description" content="Midwest's premiere exotic pet &amp; aquarium event. Birds, fish, reptiles &amp; plants — vendors, community meetups &amp; more. Register for early access!" />
+  <meta property="og:image"       content="https://joyful-muffin-718003.netlify.app/og-image.png" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt"   content="Birds &amp; Fin Midwest Fest — Join the Waitlist" />
+  <meta property="og:site_name"   content="Birds &amp; Fin Midwest Fest" />
+  <meta property="og:locale"      content="en_US" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Birds &amp; Fin Midwest Fest — Join the Waitlist" />
+  <meta name="twitter:description" content="Midwest's premiere exotic pet &amp; aquarium event. Birds, fish, reptiles &amp; plants — vendors, community meetups &amp; more. Register for early access!" />
+  <meta name="twitter:image"       content="https://joyful-muffin-718003.netlify.app/og-image.png" />
+  <meta name="twitter:image:alt"   content="Birds &amp; Fin Midwest Fest social preview" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -96,7 +117,10 @@
         </div>
 
         <!-- Form -->
-        <form id="waitlistForm" novalidate>
+        <form id="waitlistForm" name="waitlist" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="waitlist" />
+          <!-- Honeypot spam field (hidden from real users) -->
+          <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
           <div class="form-row">
             <div class="form-group">
               <label for="firstName">First Name <span class="req">*</span></label>

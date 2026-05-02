@@ -129,48 +129,30 @@ if (form) {
       return;
     }
 
-    // Gather form data
-    const data = {
-      firstName: document.getElementById('firstName').value.trim(),
-      lastName:  document.getElementById('lastName').value.trim(),
-      email:     document.getElementById('email').value.trim(),
-      phone:     document.getElementById('phone').value.trim(),
-      interest:  document.getElementById('interest').value,
-      agreed:    true,
-      timestamp: new Date().toISOString(),
-    };
-
-    // Simulate submission (replace with real API call / Formspree / EmailJS etc.)
+    // Submit to Netlify Forms via fetch
     submitBtn.disabled = true;
     submitBtn.querySelector('.btn-text').textContent = 'Registering...';
 
-    simulateSubmit(data)
-      .then(() => {
+    const formData = new FormData(form);
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(formData).toString(),
+    })
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
         // Hide form, show success
         form.style.display = 'none';
         document.querySelector('.form-header').style.display = 'none';
         successState.style.display = 'block';
         successState.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-        // Log to console for demo purposes
-        console.log('[Birds & Fin Midwest Fest] New registration:', data);
       })
       .catch(() => {
         submitBtn.disabled = false;
         submitBtn.querySelector('.btn-text').textContent = 'Reserve My Spot';
         alert('Something went wrong. Please try again!');
       });
-  });
-}
-
-/* ── Simulate API Submission ─────────────────────────────── */
-// Replace this with a real form backend:
-//   - Formspree:  fetch('https://formspree.io/f/YOUR_FORM_ID', { method: 'POST', ... })
-//   - EmailJS:    emailjs.send(...)
-//   - Your own:   fetch('/api/register', { method: 'POST', body: JSON.stringify(data) })
-function simulateSubmit(data) {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(data), 1200);
   });
 }
 

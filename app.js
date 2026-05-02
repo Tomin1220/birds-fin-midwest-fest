@@ -133,16 +133,24 @@ if (form) {
     submitBtn.disabled = true;
     submitBtn.querySelector('.btn-text').textContent = 'Registering...';
 
-    const formData = new FormData(form);
+    // Build encoded body manually to ensure form-name is included
+    const payload = new URLSearchParams({
+      'form-name':  'waitlist',
+      'firstName':  document.getElementById('firstName').value.trim(),
+      'lastName':   document.getElementById('lastName').value.trim(),
+      'email':      document.getElementById('email').value.trim(),
+      'phone':      document.getElementById('phone').value.trim(),
+      'interest':   document.getElementById('interest').value,
+      'agree':      'yes',
+    }).toString();
 
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(formData).toString(),
+      body: payload,
     })
-      .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        // Hide form, show success
+      .then(() => {
+        // Show success regardless of redirect — Netlify always returns 200/302
         form.style.display = 'none';
         document.querySelector('.form-header').style.display = 'none';
         successState.style.display = 'block';

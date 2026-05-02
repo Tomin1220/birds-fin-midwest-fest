@@ -371,6 +371,65 @@ select {
   cursor: pointer;
 }
 
+/* ── Vendor Fields ─────────────────────────────────── */
+.vendor-fields {
+  background: linear-gradient(135deg, #f0faf4, #f7fbf9);
+  border: 1.5px solid rgba(45,106,79,0.2);
+  border-radius: var(--radius-md);
+  padding: 20px 20px 4px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-width: 0;
+  transition: max-height 0.45s ease, opacity 0.35s ease, padding 0.35s ease, border-width 0.35s ease;
+}
+
+.vendor-fields.visible {
+  max-height: 600px;
+  opacity: 1;
+  padding: 20px 20px 4px;
+  border-width: 1.5px;
+}
+
+.vendor-fields-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--green-accent);
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+}
+
+.vendor-fields-icon { font-size: 1.3rem; }
+
+textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid #d1d5db;
+  border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  background: #f9fafb;
+  resize: vertical;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  line-height: 1.6;
+}
+
+textarea:focus {
+  border-color: var(--green-light);
+  box-shadow: 0 0 0 3px rgba(64,145,108,0.15);
+  background: var(--white);
+}
+
+textarea.invalid { border-color: var(--error); }
+
 /* ── Agreement Checkbox ────────────────────────────── */
 .agreement-box {
   background: #f0faf4;

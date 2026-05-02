@@ -158,6 +158,32 @@
             </select>
           </div>
 
+          <!-- Vendor Fields (shown when Vendor / Seller or Both is selected) -->
+          <div class="vendor-fields" id="vendorFields">
+            <div class="vendor-fields-header">
+              <span class="vendor-fields-icon">🏪</span>
+              <span>Tell us about your vendor booth</span>
+            </div>
+
+            <div class="form-group">
+              <label for="companyName">Company / Booth Name <span class="req">*</span></label>
+              <input type="text" id="companyName" name="companyName" placeholder="e.g. Midwest Aquatics, Parrot Paradise..." autocomplete="organization" />
+              <span class="field-error" id="companyNameError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="cityTown">Village or Town You Reside <span class="req">*</span></label>
+              <input type="text" id="cityTown" name="cityTown" placeholder="e.g. Columbus, Naperville, Dayton..." autocomplete="address-level2" />
+              <span class="field-error" id="cityTownError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="sellsWhat">What Do You Sell? <span class="req">*</span></label>
+              <textarea id="sellsWhat" name="sellsWhat" rows="3" placeholder="e.g. I breed and sell rare freshwater fish — discus, apistos, and plecos. Also sell plants and hardscape..."></textarea>
+              <span class="field-error" id="sellsWhatError"></span>
+            </div>
+          </div>
+
           <!-- Agreement -->
           <div class="agreement-box">
             <label class="checkbox-label" for="agree">

@@ -62,6 +62,24 @@ function isValidPhone(phone) {
   return digits.length === 10;
 }
 
+/* ── Vendor Fields Show/Hide ──────────────────────────────── */
+const interestSelect  = document.getElementById('interest');
+const vendorFields    = document.getElementById('vendorFields');
+const VENDOR_VALUES   = ['vendor', 'both'];
+
+function toggleVendorFields() {
+  const isVendor = VENDOR_VALUES.includes(interestSelect.value);
+  vendorFields.classList.toggle('visible', isVendor);
+  // Clear errors when hiding
+  if (!isVendor) {
+    ['companyName', 'cityTown', 'sellsWhat'].forEach(id => clearError(id, id + 'Error'));
+  }
+}
+
+if (interestSelect) {
+  interestSelect.addEventListener('change', toggleVendorFields);
+}
+
 /* ── Live Validation (on blur) ────────────────────────────── */
 const liveFields = [
   { id: 'firstName', errorId: 'firstNameError', check: v => v.trim().length >= 2, msg: 'Please enter your first name.' },
@@ -99,6 +117,7 @@ if (form) {
     // Clear all errors first
     liveFields.forEach(({ id, errorId }) => clearError(id, errorId));
     clearError('agree', 'agreeError');
+    ['companyName', 'cityTown', 'sellsWhat'].forEach(id => clearError(id, id + 'Error'));
 
     let valid = true;
 
@@ -110,6 +129,23 @@ if (form) {
         valid = false;
       }
     });
+
+    // Validate vendor fields if visible
+    const isVendor = VENDOR_VALUES.includes(document.getElementById('interest').value);
+    if (isVendor) {
+      const vendorChecks = [
+        { id: 'companyName', msg: 'Please enter your company or booth name.' },
+        { id: 'cityTown',    msg: 'Please enter your village or town.' },
+        { id: 'sellsWhat',   msg: 'Please briefly describe what you sell.' },
+      ];
+      vendorChecks.forEach(({ id, msg }) => {
+        const el = document.getElementById(id);
+        if (el && el.value.trim().length < 2) {
+          showError(id, id + 'Error', msg);
+          valid = false;
+        }
+      });
+    }
 
     // Validate agreement checkbox
     const agreeEl = document.getElementById('agree');
@@ -134,14 +170,20 @@ if (form) {
     submitBtn.querySelector('.btn-text').textContent = 'Registering...';
 
     // Build encoded body manually to ensure form-name is included
+    const isVendorSubmit = VENDOR_VALUES.includes(document.getElementById('interest').value);
     const payload = new URLSearchParams({
-      'form-name':  'waitlist',
-      'firstName':  document.getElementById('firstName').value.trim(),
-      'lastName':   document.getElementById('lastName').value.trim(),
-      'email':      document.getElementById('email').value.trim(),
-      'phone':      document.getElementById('phone').value.trim(),
-      'interest':   document.getElementById('interest').value,
-      'agree':      'yes',
+      'form-name':   'waitlist',
+      'firstName':   document.getElementById('firstName').value.trim(),
+      'lastName':    document.getElementById('lastName').value.trim(),
+      'email':       document.getElementById('email').value.trim(),
+      'phone':       document.getElementById('phone').value.trim(),
+      'interest':    document.getElementById('interest').value,
+      'agree':       'yes',
+      ...(isVendorSubmit && {
+        'companyName': document.getElementById('companyName').value.trim(),
+        'cityTown':    document.getElementById('cityTown').value.trim(),
+        'sellsWhat':   document.getElementById('sellsWhat').value.trim(),
+      }),
     }).toString();
 
     fetch('/', {

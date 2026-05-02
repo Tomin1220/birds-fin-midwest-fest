@@ -195,3 +195,67 @@ document.querySelectorAll('.feature-card, .step').forEach(el => {
   el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   observer.observe(el);
 });
+
+/* ── Social Share Functions ───────────────────────────────── */
+const SHARE_URL  = 'https://fafma.netlify.app';
+const SHARE_TEXT = '🦜🐠🦎🌿 Join me at Fins & Feathers Market App — Midwest\'s premiere exotic pet & aquarium event! Birds, fish, reptiles, plants & more. Sign up for early access:';
+
+function shareFacebook() {
+  const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}`;
+  window.open(url, '_blank', 'width=600,height=460');
+}
+
+function shareTwitter() {
+  const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}&url=${encodeURIComponent(SHARE_URL)}`;
+  window.open(url, '_blank', 'width=600,height=460');
+}
+
+function shareSMS() {
+  const body = encodeURIComponent(`${SHARE_TEXT} ${SHARE_URL}`);
+  // sms: works on iOS & Android; falls back gracefully on desktop
+  window.location.href = `sms:?&body=${body}`;
+}
+
+function shareWhatsApp() {
+  const msg = encodeURIComponent(`${SHARE_TEXT} ${SHARE_URL}`);
+  window.open(`https://wa.me/?text=${msg}`, '_blank');
+}
+
+function copyLink() {
+  const btn = document.getElementById('copyBtn');
+  navigator.clipboard.writeText(SHARE_URL).then(() => {
+    btn.classList.add('copied');
+    const svg = btn.querySelector('svg');
+    const oldHTML = btn.innerHTML;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+    setTimeout(() => {
+      btn.innerHTML = oldHTML;
+      btn.classList.remove('copied');
+    }, 2500);
+  }).catch(() => {
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = SHARE_URL;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy Link'; }, 2500);
+  });
+}
+
+/* ── Native share (mobile) — upgrade SMS button on supported devices ── */
+if (navigator.share) {
+  const smsBtn = document.querySelector('.share-sms');
+  if (smsBtn) {
+    smsBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> Share`;
+    smsBtn.onclick = () => {
+      navigator.share({
+        title: 'Fins & Feathers Market App',
+        text: SHARE_TEXT,
+        url: SHARE_URL,
+      }).catch(() => {});
+    };
+  }
+}

@@ -615,6 +615,104 @@ select {
   padding-top: 20px;
 }
 
+/* ── Share Section ─────────────────────────────────── */
+.share-section {
+  padding: 70px 0;
+  background: linear-gradient(160deg, #0d2818 0%, #1a3a2a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.share-section::before {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(244,160,34,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.share-card {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.share-emoji {
+  font-size: 3rem;
+  margin-bottom: 14px;
+  animation: bob 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+.share-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.share-sub {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.97rem;
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+.share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 22px;
+  border: none;
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+  white-space: nowrap;
+}
+
+.share-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.share-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.share-btn:active { transform: translateY(0); }
+
+.share-fb  { background: #1877f2; color: #fff; }
+.share-x   { background: #000;    color: #fff; }
+.share-sms { background: #34c759; color: #fff; }
+.share-wa  { background: #25d366; color: #fff; }
+.share-copy {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(6px);
+}
+
+.share-copy.copied {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+
 /* ── Responsive ────────────────────────────────────── */
 @media (max-width: 600px) {
   .form-row { grid-template-columns: 1fr; }

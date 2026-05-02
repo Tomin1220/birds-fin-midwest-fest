@@ -184,6 +184,114 @@
             </div>
           </div>
 
+          <!-- Attendee / Buyer Fields -->
+          <div class="role-fields" id="attendeeFields">
+            <div class="vendor-fields-header">
+              <span class="vendor-fields-icon">🎟️</span>
+              <span>Tell us about your visit</span>
+            </div>
+
+            <div class="form-group">
+              <label for="buyInterest">What are you most interested in buying?</label>
+              <select id="buyInterest" name="buyInterest">
+                <option value="">— Select one —</option>
+                <option value="birds">Birds</option>
+                <option value="fish">Aquarium Fish</option>
+                <option value="reptiles">Reptiles</option>
+                <option value="plants">Plants</option>
+                <option value="all">All of it!</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="bringingWho">Are you bringing anyone with you?</label>
+              <select id="bringingWho" name="bringingWho">
+                <option value="">— Select one —</option>
+                <option value="just_me">Just me</option>
+                <option value="family">Bringing family</option>
+                <option value="friends">Bringing friends</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="heardFrom">How did you hear about us?</label>
+              <input type="text" id="heardFrom" name="heardFrom" placeholder="e.g. Facebook, friend, flyer, Instagram..." />
+            </div>
+          </div>
+
+          <!-- Breeder Fields -->
+          <div class="role-fields" id="breederFields">
+            <div class="vendor-fields-header">
+              <span class="vendor-fields-icon">🐣</span>
+              <span>Tell us about your breeding</span>
+            </div>
+
+            <div class="form-group">
+              <label for="breedsWhat">What do you breed? <span class="req">*</span></label>
+              <textarea id="breedsWhat" name="breedsWhat" rows="3" placeholder="e.g. I breed African cichlids, rainbow fish, and live-bearers..."></textarea>
+              <span class="field-error" id="breedsWhatError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="breederCity">Village or Town You Reside <span class="req">*</span></label>
+              <input type="text" id="breederCity" name="breederCity" placeholder="e.g. Columbus, Naperville, Dayton..." autocomplete="address-level2" />
+              <span class="field-error" id="breederCityError"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="wantsBooth">Interested in having a booth at the event?</label>
+              <select id="wantsBooth" name="wantsBooth">
+                <option value="">— Select one —</option>
+                <option value="yes">Yes, I'd love a booth!</option>
+                <option value="maybe">Maybe — tell me more</option>
+                <option value="no">No, just attending</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Just Curious / Community Fields -->
+          <div class="role-fields" id="curiousFields">
+            <div class="vendor-fields-header">
+              <span class="vendor-fields-icon">👋</span>
+              <span>Welcome! Tell us a little more</span>
+            </div>
+
+            <div class="form-group">
+              <label for="howFound">What got you interested?</label>
+              <select id="howFound" name="howFound">
+                <option value="">— Select one —</option>
+                <option value="social_media">Saw it on social media</option>
+                <option value="friend">A friend told me</option>
+                <option value="browsing">Just browsing around</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="futureNotify">Would you like to be notified about future events?</label>
+              <select id="futureNotify" name="futureNotify">
+                <option value="">— Select one —</option>
+                <option value="yes_both">Yes — text &amp; email</option>
+                <option value="yes_email">Yes — email only</option>
+                <option value="yes_text">Yes — text only</option>
+                <option value="no">No thanks</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Both — Vendor & Buyer extra field -->
+          <div class="role-fields" id="bothBuyFields">
+            <div class="vendor-fields-header">
+              <span class="vendor-fields-icon">🛒</span>
+              <span>What are you looking to buy?</span>
+            </div>
+
+            <div class="form-group">
+              <label for="lookingToBuy">What are you looking to pick up at the event?</label>
+              <input type="text" id="lookingToBuy" name="lookingToBuy" placeholder="e.g. Looking for rare plecos and a pair of conures..." />
+            </div>
+          </div>
+
           <!-- Agreement -->
           <div class="agreement-box">
             <label class="checkbox-label" for="agree">

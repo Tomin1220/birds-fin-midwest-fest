@@ -430,6 +430,29 @@ textarea:focus {
 
 textarea.invalid { border-color: var(--error); }
 
+/* ── Role-specific Fields (attendee, breeder, curious, both-buy) ── */
+.role-fields {
+  background: linear-gradient(135deg, #f0faf4, #f7fbf9);
+  border: 1.5px solid rgba(45,106,79,0.2);
+  border-radius: var(--radius-md);
+  padding: 0;
+  margin-bottom: 0;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  border-width: 0;
+  transition: max-height 0.45s ease, opacity 0.35s ease, padding 0.35s ease,
+              margin-bottom 0.35s ease, border-width 0.35s ease;
+}
+
+.role-fields.visible {
+  max-height: 700px;
+  opacity: 1;
+  padding: 20px 20px 4px;
+  margin-bottom: 20px;
+  border-width: 1.5px;
+}
+
 /* ── Agreement Checkbox ────────────────────────────── */
 .agreement-box {
   background: #f0faf4;

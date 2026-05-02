@@ -62,22 +62,53 @@ function isValidPhone(phone) {
   return digits.length === 10;
 }
 
-/* ── Vendor Fields Show/Hide ──────────────────────────────── */
-const interestSelect  = document.getElementById('interest');
-const vendorFields    = document.getElementById('vendorFields');
-const VENDOR_VALUES   = ['vendor', 'both'];
+/* ── Role Fields Show/Hide ────────────────────────────────── */
+const interestSelect = document.getElementById('interest');
+const VENDOR_VALUES  = ['vendor', 'both'];
 
-function toggleVendorFields() {
-  const isVendor = VENDOR_VALUES.includes(interestSelect.value);
-  vendorFields.classList.toggle('visible', isVendor);
-  // Clear errors when hiding
-  if (!isVendor) {
-    ['companyName', 'cityTown', 'sellsWhat'].forEach(id => clearError(id, id + 'Error'));
-  }
+// Map each interest value → which panel IDs to show
+const ROLE_MAP = {
+  attendee:     ['attendeeFields'],
+  vendor:       ['vendorFields'],
+  both:         ['vendorFields', 'bothBuyFields'],
+  breeder:      ['breederFields'],
+  just_looking: ['curiousFields'],
+};
+
+// All panel IDs
+const ALL_PANELS = ['vendorFields', 'attendeeFields', 'breederFields', 'curiousFields', 'bothBuyFields'];
+
+// Required fields per panel (id → error message)
+const PANEL_REQUIRED = {
+  vendorFields:  [
+    { id: 'companyName', msg: 'Please enter your company or booth name.' },
+    { id: 'cityTown',    msg: 'Please enter your village or town.' },
+    { id: 'sellsWhat',   msg: 'Please briefly describe what you sell.' },
+  ],
+  breederFields: [
+    { id: 'breedsWhat',   msg: 'Please describe what you breed.' },
+    { id: 'breederCity',  msg: 'Please enter your village or town.' },
+  ],
+};
+
+function toggleRoleFields() {
+  const val = interestSelect ? interestSelect.value : '';
+  const show = ROLE_MAP[val] || [];
+
+  ALL_PANELS.forEach(panelId => {
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+    const visible = show.includes(panelId);
+    panel.classList.toggle('visible', visible);
+    // Clear errors on hide
+    if (!visible && PANEL_REQUIRED[panelId]) {
+      PANEL_REQUIRED[panelId].forEach(({ id }) => clearError(id, id + 'Error'));
+    }
+  });
 }
 
 if (interestSelect) {
-  interestSelect.addEventListener('change', toggleVendorFields);
+  interestSelect.addEventListener('change', toggleRoleFields);
 }
 
 /* ── Live Validation (on blur) ────────────────────────────── */
@@ -130,22 +161,21 @@ if (form) {
       }
     });
 
-    // Validate vendor fields if visible
-    const isVendor = VENDOR_VALUES.includes(document.getElementById('interest').value);
-    if (isVendor) {
-      const vendorChecks = [
-        { id: 'companyName', msg: 'Please enter your company or booth name.' },
-        { id: 'cityTown',    msg: 'Please enter your village or town.' },
-        { id: 'sellsWhat',   msg: 'Please briefly describe what you sell.' },
-      ];
-      vendorChecks.forEach(({ id, msg }) => {
+    // Validate required fields for whichever panels are visible
+    const visiblePanels = ALL_PANELS.filter(id => {
+      const p = document.getElementById(id);
+      return p && p.classList.contains('visible');
+    });
+    visiblePanels.forEach(panelId => {
+      if (!PANEL_REQUIRED[panelId]) return;
+      PANEL_REQUIRED[panelId].forEach(({ id, msg }) => {
         const el = document.getElementById(id);
         if (el && el.value.trim().length < 2) {
           showError(id, id + 'Error', msg);
           valid = false;
         }
       });
-    }
+    });
 
     // Validate agreement checkbox
     const agreeEl = document.getElementById('agree');
@@ -170,21 +200,56 @@ if (form) {
     submitBtn.querySelector('.btn-text').textContent = 'Registering...';
 
     // Build encoded body manually to ensure form-name is included
-    const isVendorSubmit = VENDOR_VALUES.includes(document.getElementById('interest').value);
-    const payload = new URLSearchParams({
-      'form-name':   'waitlist',
-      'firstName':   document.getElementById('firstName').value.trim(),
-      'lastName':    document.getElementById('lastName').value.trim(),
-      'email':       document.getElementById('email').value.trim(),
-      'phone':       document.getElementById('phone').value.trim(),
-      'interest':    document.getElementById('interest').value,
-      'agree':       'yes',
-      ...(isVendorSubmit && {
-        'companyName': document.getElementById('companyName').value.trim(),
-        'cityTown':    document.getElementById('cityTown').value.trim(),
-        'sellsWhat':   document.getElementById('sellsWhat').value.trim(),
-      }),
-    }).toString();
+    const interestVal = document.getElementById('interest').value;
+
+    // Helper: get value only if field exists and panel is visible
+    function fieldVal(id) {
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+    function panelVisible(panelId) {
+      const p = document.getElementById(panelId);
+      return p && p.classList.contains('visible');
+    }
+
+    const payloadObj = {
+      'form-name': 'waitlist',
+      firstName:   fieldVal('firstName'),
+      lastName:    fieldVal('lastName'),
+      email:       fieldVal('email'),
+      phone:       fieldVal('phone'),
+      interest:    interestVal,
+      agree:       'yes',
+    };
+
+    // Vendor / Both
+    if (panelVisible('vendorFields')) {
+      payloadObj.companyName = fieldVal('companyName');
+      payloadObj.cityTown    = fieldVal('cityTown');
+      payloadObj.sellsWhat   = fieldVal('sellsWhat');
+    }
+    if (panelVisible('bothBuyFields')) {
+      payloadObj.lookingToBuy = fieldVal('lookingToBuy');
+    }
+    // Attendee
+    if (panelVisible('attendeeFields')) {
+      payloadObj.buyInterest  = fieldVal('buyInterest');
+      payloadObj.bringingWho  = fieldVal('bringingWho');
+      payloadObj.heardFrom    = fieldVal('heardFrom');
+    }
+    // Breeder
+    if (panelVisible('breederFields')) {
+      payloadObj.breedsWhat  = fieldVal('breedsWhat');
+      payloadObj.breederCity = fieldVal('breederCity');
+      payloadObj.wantsBooth  = fieldVal('wantsBooth');
+    }
+    // Just Curious
+    if (panelVisible('curiousFields')) {
+      payloadObj.howFound      = fieldVal('howFound');
+      payloadObj.futureNotify  = fieldVal('futureNotify');
+    }
+
+    const payload = new URLSearchParams(payloadObj).toString();
 
     fetch('/', {
       method: 'POST',
